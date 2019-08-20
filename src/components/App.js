@@ -1,8 +1,7 @@
 import React from 'react';
-import './App.css';
 import { Route } from 'react-router-dom'
-import BookShelves from './components/BookShelves';
-import Search from './components/Search';
+import BookShelves from './BookShelves';
+import Search from './Search';
 
 function App() {
   return (
