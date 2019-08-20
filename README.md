@@ -9,6 +9,6 @@ My Reads is a books management web application for a user where he can search an
 ### Local Setup
 Go to project directory and run commands:
 - npm install
-- npm aws
+- npm start
 
 Server will start listening on localhost: 3000
