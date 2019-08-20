@@ -12,3 +12,7 @@ Go to project directory and run commands:
 - npm start
 
 Server will start listening on localhost: 3000
+
+### License
+
+The contents of this repository are under MIT License
