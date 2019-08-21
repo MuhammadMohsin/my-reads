@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Book = (props) => {
-    const { books } = props;
+    const { books, updateBookShelf } = props;
 
     return (
         <ol className="books-grid">
@@ -12,7 +12,7 @@ const Book = (props) => {
                             <div className="book-top">
                                 <div className="book-cover" style={{ backgroundImage: 'url(' + book.imageLinks.smallThumbnail + ')' }}></div>
                                 <div className="book-shelf-changer">
-                                    <select>
+                                    <select onChange={(e) => updateBookShelf(book, e.target.value)}>
                                         <option value="move" disabled>Move to...</option>
                                         <option value="currentlyReading">Currently Reading</option>
                                         <option value="wantToRead">Want to Read</option>

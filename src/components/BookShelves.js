@@ -10,8 +10,8 @@ class BookShelves extends Component {
         loadingState: false
     }
 
-    async componentDidMount() {
-        this.setState({ loadingState: true });
+    getAllBooks = async () => {
+        this.processLoader(true);
         const books = await BooksService.getAll();
         this.setState({ loadingState: false, books });
     }
@@ -20,8 +20,27 @@ class BookShelves extends Component {
         return this.state.books.filter(book => book.shelf === shelf);
     }
 
+    updateBookShelf = async (updatedBook, newShelfName) => {
+        const book = this.state.books.find(bookObj => bookObj.id === updatedBook.id);
+
+        /* Check whether user is updating already placed shelf */
+        if (book.shelf !== newShelfName) {
+            this.processLoader(true);
+            await BooksService.update(updatedBook, newShelfName);
+            this.getAllBooks();
+        }
+    }
+
+    processLoader = (state) => {
+        this.setState({ loadingState: state })
+    }
+
+    componentDidMount() {
+        this.getAllBooks();
+    }
+
     render() {
-        const { loadingState, books } = this.state;
+        const { loadingState } = this.state;
         return (
             <div className="app">
                 <div className="list-books">
@@ -29,26 +48,34 @@ class BookShelves extends Component {
                         <h1>MyReads</h1>
                     </div>
                     {loadingState ? <h2>Loading..</h2> :
-                        books.length &&
                         <div>
                             <div className="list-books-content">
                                 <div>
                                     <div className="bookshelf">
                                         <h2 className="bookshelf-title">Currently Reading</h2>
                                         <div className="bookshelf-books">
-                                            <Book books={this.filterBooks("currentlyReading")} />
+                                            <Book
+                                                books={this.filterBooks("currentlyReading")}
+                                                updateBookShelf={this.updateBookShelf}
+                                            />
                                         </div>
                                     </div>
                                     <div className="bookshelf">
                                         <h2 className="bookshelf-title">Want to Read</h2>
                                         <div className="bookshelf-books">
-                                            <Book books={this.filterBooks("wantToRead")} />
+                                            <Book
+                                                books={this.filterBooks("wantToRead")}
+                                                updateBookShelf={this.updateBookShelf}
+                                            />
                                         </div>
                                     </div>
                                     <div className="bookshelf">
                                         <h2 className="bookshelf-title">Read</h2>
                                         <div className="bookshelf-books">
-                                            <Book books={this.filterBooks("read")} />
+                                            <Book
+                                                books={this.filterBooks("read")}
+                                                updateBookShelf={this.updateBookShelf}
+                                            />
                                         </div>
                                     </div>
                                 </div>
