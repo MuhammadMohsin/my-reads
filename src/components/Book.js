@@ -1,7 +1,16 @@
 import React from 'react';
+import defaultThumbnailImage from '../assets/404_img.jpg';
 
 const Book = (props) => {
     const { books, updateBookShelf } = props;
+
+    const getThumbnailImg = (book) => {
+        if(book.imageLinks && book.imageLinks.smallThumbnail)
+            return book.imageLinks.smallThumbnail;
+        else if(book.imageLinks && book.imageLinks.thumbnail)
+            return book.imageLinks.thumbnail;
+        else return defaultThumbnailImage;
+    }
 
     return (
         <ol className="books-grid">
@@ -10,9 +19,9 @@ const Book = (props) => {
                     return (<li key={book.id}>
                         <div className="read">
                             <div className="book-top">
-                                <div className="book-cover" style={{ backgroundImage: 'url(' + book.imageLinks.smallThumbnail || book.imageLinks.thumbnail || null + ')' }}></div>
+                                <div className="book-cover" style={{ backgroundImage: 'url(' +  getThumbnailImg(book) + ')' }}></div>
                                 <div className="book-shelf-changer">
-                                    <select onChange={(e) => updateBookShelf(book, e.target.value)}>
+                                    <select onChange={(e) => updateBookShelf(book, e.target.value)} defaultValue={ book.shelf }>
                                         <option value="move" disabled>Move to...</option>
                                         <option value="currentlyReading">Currently Reading</option>
                                         <option value="wantToRead">Want to Read</option>
