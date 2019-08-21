@@ -15,13 +15,13 @@ const Book = (props) => {
     return (
         <ol className="books-grid">
             {books.length ?
-                books.map(book => {
+                books.map((book, index) => {
                     return (<li key={book.id}>
                         <div className="read">
                             <div className="book-top">
                                 <div className="book-cover" style={{ backgroundImage: 'url(' +  getThumbnailImg(book) + ')' }}></div>
                                 <div className="book-shelf-changer">
-                                    <select onChange={(e) => updateBookShelf(book, e.target.value)} defaultValue={ book.shelf }>
+                                    <select onChange={(e) => updateBookShelf(book, e.target.value, index)} defaultValue={ book.shelf }>
                                         <option value="move" disabled>Move to...</option>
                                         <option value="currentlyReading">Currently Reading</option>
                                         <option value="wantToRead">Want to Read</option>

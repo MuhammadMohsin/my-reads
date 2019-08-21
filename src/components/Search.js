@@ -25,14 +25,17 @@ class Search extends Component {
                 else this.setState({ book: [], searchError: "Search not found!", loadingState: false });
             } catch(error){
                 console.log(error);
-                this.setState({ loadingState: false });            
+                this.setState({ loadingState: false });
             }
         }
     }
 
-    updateBookShelf = async (updatedBook, newShelfName) => {
+    updateBookShelf = async (updatedBook, newShelfName, index) => {
         try {
             await BooksService.update(updatedBook, newShelfName);
+            let books = this.state.books.slice(0);
+            books[index].shelf = newShelfName
+            this.setState({ books });
         } catch(error){
             console.log(error);
         }
