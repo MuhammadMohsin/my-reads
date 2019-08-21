@@ -10,7 +10,7 @@ const Book = (props) => {
                     return (<li key={book.id}>
                         <div className="read">
                             <div className="book-top">
-                                <div className="book-cover" style={{ backgroundImage: 'url(' + book.imageLinks.smallThumbnail + ')' }}></div>
+                                <div className="book-cover" style={{ backgroundImage: 'url(' + book.imageLinks.smallThumbnail || book.imageLinks.thumbnail || null + ')' }}></div>
                                 <div className="book-shelf-changer">
                                     <select onChange={(e) => updateBookShelf(book, e.target.value)}>
                                         <option value="move" disabled>Move to...</option>
