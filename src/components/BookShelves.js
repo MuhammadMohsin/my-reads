@@ -11,9 +11,14 @@ class BookShelves extends Component {
     }
 
     getAllBooks = async () => {
-        this.processLoader(true);
-        const books = await BooksService.getAll();
-        this.setState({ loadingState: false, books });
+        this.setState({ loadingState: true });
+        try {
+            const books = await BooksService.getAll();
+            this.setState({ loadingState: false, books });
+        } catch(error){
+            console.log(error);
+            this.setState({ loadingState: false });
+        }
     }
 
     filterBooks = (shelf) => {
@@ -25,14 +30,16 @@ class BookShelves extends Component {
 
         /* Check whether user is updating already placed shelf */
         if (book.shelf !== newShelfName) {
-            this.processLoader(true);
+            this.setState({ loadingState: true });
+            try {
             await BooksService.update(updatedBook, newShelfName);
+            this.setState({ loadingState: false });
             this.getAllBooks();
+            } catch(error){
+                console.log(error);
+                this.setState({ loadingState: false });
+            }
         }
-    }
-
-    processLoader = (state) => {
-        this.setState({ loadingState: state })
     }
 
     componentDidMount() {

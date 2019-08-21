@@ -17,16 +17,25 @@ class Search extends Component {
         const { query } = this.state;
         if (query) {
             this.setState({ loadingState: true });
-            const books = await BooksService.search(query);
-            if (books && books.length) {
-                this.setState({ books, loadingState: false, searchError: "" });
+            try {
+                const books = await BooksService.search(query);
+                if (books && books.length) {
+                    this.setState({ books, loadingState: false, searchError: "" });
+                }
+                else this.setState({ book: [], searchError: "Search not found!", loadingState: false });
+            } catch(error){
+                console.log(error);
+                this.setState({ loadingState: false });            
             }
-            else this.setState({ book: [], searchError: "Search not found!", loadingState: false });
         }
     }
 
     updateBookShelf = async (updatedBook, newShelfName) => {
-        await BooksService.update(updatedBook, newShelfName);
+        try {
+            await BooksService.update(updatedBook, newShelfName);
+        } catch(error){
+            console.log(error);
+        }
     }
 
     render() {
