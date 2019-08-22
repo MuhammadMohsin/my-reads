@@ -74,9 +74,6 @@ body, .app {
   display: flex;
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 0 6px rgba(0,0,0,0.23);
 }
-.search-books-form{
-  width: 100%;
-}
 .search-books-input-wrapper {
   flex: 1;
   background: #e9e;
