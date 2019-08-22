@@ -181,3 +181,20 @@ body, .app {
   text-align: center;
   font-size: 0.8em;
 }
+
+/* 404 page */
+
+.default-page-container {
+  display: flex;
+}
+
+.back-home {
+  margin-top: 11px;
+  width: 50px;
+  height: 53px;
+  background: white;
+  background-image: url(/static/media/arrow-back.3687aa98.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 30px;
+}
