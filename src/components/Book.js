@@ -31,10 +31,15 @@ const Book = (props) => {
                                 </div>
                             </div>
                             <div className="book-title">{book.title}</div>
-                            <div className="book-authors">{book.authors}</div>
+                            <div className="book-authors">{book.authors.join("\n")}</div>
                         </div>
                     </li>)
                 })
+
+                /* This is a message telling a user that
+                   he do not have any book for this shelf.
+                   This is not a required field. */
+
                 : <h3>You do not have any book in this shelf!</h3>}
         </ol>
 
