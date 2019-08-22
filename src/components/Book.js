@@ -31,7 +31,7 @@ const Book = (props) => {
                                 </div>
                             </div>
                             <div className="book-title">{book.title}</div>
-                            <div className="book-authors">{book.authors.join("\n")}</div>
+                            <div className="book-authors">{book.authors && book.authors.length? book.authors.join("\n"): ""}</div>
                         </div>
                     </li>)
                 })
