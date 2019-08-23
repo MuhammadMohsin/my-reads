@@ -77,12 +77,17 @@ class App extends Component {
     try {
       await BooksService.update(updatedBook, newShelfName);
       this.setState((currentState) => {
-        const updatedBooks = currentState.searchedBooks.map(book => {
+        const updatedSearchedBooks = currentState.searchedBooks.map(book => {
           if (book.id === updatedBook.id)
             book.shelf = newShelfName
           return book;
         })
-        return { books: updatedBooks }
+        const updatedShelfBooks = currentState.shelfBooks.map(book => {
+          if (book.id === updatedBook.id)
+            book.shelf = newShelfName
+          return book;
+        })
+        return { searchedBooks: updatedSearchedBooks, shelfBooks: updatedShelfBooks }
       })
     } catch (error) {
       console.log(error);
